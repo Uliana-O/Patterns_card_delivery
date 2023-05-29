@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'com.codeborne:selenide:6.12.2'
-    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+
 
 }
 
