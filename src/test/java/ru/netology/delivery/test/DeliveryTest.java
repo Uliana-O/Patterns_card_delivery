@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
-import ru.netology.delivery.data.DataGenerator;
+import data.DataGenerator;
+import ru.netology.data.DataGenerator;
 
 import java.time.Duration;
 
@@ -37,6 +38,7 @@ class DeliveryTest {
             @Test
             @DisplayName("Should successful plan and changePlan meeting")
             void shouldSuccessfulPlanAndChangePlanMeeting() {
+                DataGenerator DataGenerator;
                 var validUser = DataGenerator.Registration.generateUser("ru");
                 var daysToAddForFirstMeeting = 4;
                 var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
