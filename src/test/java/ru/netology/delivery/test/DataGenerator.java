@@ -1,8 +1,7 @@
-package ru.netology.data;
+package ru.netology.delivery.test;
 
 import com.github.javafaker.Faker;
 import lombok.Value;
-import lombok.val;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +11,12 @@ public class DataGenerator {
     private DataGenerator() {
     }
 
-    public static String generateDate(int shift) {
-        String date = LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        return date;
-    }
+        public static String generateDate(int shift) {
+            String date;
+            date = LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            return date;
+        }
+
 
     public static String generateCity(String locale) {
         Faker faker = new Faker(new Locale(locale));
@@ -57,3 +58,4 @@ public class DataGenerator {
         String phone;
     }
 }
+

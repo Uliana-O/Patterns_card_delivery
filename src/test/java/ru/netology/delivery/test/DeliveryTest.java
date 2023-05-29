@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
-import data.DataGenerator;
-import ru.netology.data.DataGenerator;
 
 import java.time.Duration;
 
@@ -21,13 +19,14 @@ class DeliveryTest {
     }
 
     @Test
-    @DisplayName("Should successful plan and replan meeting")
+    @DisplayName("Should successful plan and ChangePlan meeting")
     void shouldSuccessfulPlanAndReplanMeeting() {
+        DataGenerator DateGenerator = null;
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
-        var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
+        var firstMeetingDate = DateGenerator.generateDate(daysToAddForFirstMeeting);
         var daysToAddForSecondMeeting = 7;
-        var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
+        var secondMeetingDate = DateGenerator.generateDate(daysToAddForSecondMeeting);
         class DeliveryCardTest {
 
             @BeforeEach
@@ -38,12 +37,11 @@ class DeliveryTest {
             @Test
             @DisplayName("Should successful plan and changePlan meeting")
             void shouldSuccessfulPlanAndChangePlanMeeting() {
-                DataGenerator DataGenerator;
                 var validUser = DataGenerator.Registration.generateUser("ru");
                 var daysToAddForFirstMeeting = 4;
-                var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
+                var firstMeetingDate = DateGenerator.generateDate(daysToAddForFirstMeeting);
                 var daysToAddForSecondMeeting = 7;
-                var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
+                var secondMeetingDate = DateGenerator.generateDate(daysToAddForSecondMeeting);
 
                 // первичная дата
 
