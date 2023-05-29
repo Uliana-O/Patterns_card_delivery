@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/5p51u94o1b5e6skc?svg=true)](https://ci.appveyor.com/project/Uliana-O/patterns-card-delivery)
