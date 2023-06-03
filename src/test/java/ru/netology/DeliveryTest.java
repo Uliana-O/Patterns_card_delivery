@@ -1,6 +1,7 @@
 package ru.netology;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,6 @@ class DeliveryTest {
     void setup() {
         open("http://localhost:7777");
     }
-
     @Test
     @DisplayName("Should successful plan and ChangePlan meeting")
     void shouldSuccessfulPlanAndReplanMeeting() {
@@ -28,48 +28,34 @@ class DeliveryTest {
         var firstMeetingDate = DateGenerator.generateDate(daysToAddForFirstMeeting);
         var daysToAddForSecondMeeting = 7;
         var secondMeetingDate = DateGenerator.generateDate(daysToAddForSecondMeeting);
-        class DeliveryCardTest {
 
-            @BeforeEach
-            void setup() {
-                open("http://localhost:7777");
-            }
+        // первичная дата
 
-            @Test
-            @DisplayName("Should successful plan and changePlan meeting")
-            void shouldSuccessfulPlanAndChangePlanMeeting() {
-                var validUser = DataGenerator.Registration.generateUser("ru");
-                var daysToAddForFirstMeeting = 4;
-                var firstMeetingDate = DateGenerator.generateDate(daysToAddForFirstMeeting);
-                var daysToAddForSecondMeeting = 7;
-                var secondMeetingDate = DateGenerator.generateDate(daysToAddForSecondMeeting);
+        $("[data-test-id=city] input").setValue(validUser.getCity());
+        $(".calendar-input input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $(".calendar-input input").setValue(firstMeetingDate);
+        $("[data-test-id=name] input").setValue(validUser.getName());
+        $("[data-test-id=phone] input").setValue(validUser.getPhone());
+        $("[data-test-id='agreement']").click();
+        $(".button").click();
+        $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(30));
+        $("[data-test-id=success-notification] .notification__content")
+                .shouldHave(Condition.text("Встреча успешно запланирована на " + firstMeetingDate));
 
-                // первичная дата
+        //перепланирование
 
-                $("[data-test-id=city] input").setValue(validUser.getCity());
-                $(".calendar-input input").doubleClick().sendKeys(Keys.BACK_SPACE);
-                $(".calendar-input input").setValue(firstMeetingDate);
-                $("[data-test-id=name] input").setValue(validUser.getName());
-                $("[data-test-id=phone] input").setValue(validUser.getPhone());
-                $("[data-test-id='agreement']").click();
-                $(".button").click();
-                $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(30));
-                $("[data-test-id=success-notification] .notification__content")
-                        .shouldHave(Condition.text("Встреча успешно запланирована на " + firstMeetingDate));
+        $(".calendar-input input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $(".calendar-input input").setValue(secondMeetingDate);
+        $(".button").click();
+        $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(30));
+        SelenideElement shouldHave = $("[data-test-id= changePlan-notification]")
 
-                //перепланирование
-
-                $(".calendar-input input").doubleClick().sendKeys(Keys.BACK_SPACE);
-                $(".calendar-input input").setValue(secondMeetingDate);
-                $(".button").click();
-                $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(30));
-                $("[data-test-id= changePlan-notification]")
-                        .shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
-                $(withText("Перепланировать")).click();
-                $("[data-test-id=success-notification]").shouldBe(Condition.visible, Duration.ofSeconds(30));
-                $("[data-test-id=success-notification] .notification__content")
-                        .shouldHave(Condition.text("Встреча успешно запланирована на " + secondMeetingDate));
-            }
-        }
+                .shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
+        $(withText("Перепланировать")).click();
+        $("[data-test-id=success-notification]").shouldBe(Condition.visible, Duration.ofSeconds(30));
+        $("[data-test-id=success-notification] .notification__content")
+                .shouldHave(Condition.text("Встреча успешно запланирована на " + secondMeetingDate));
     }
 }
+
+
