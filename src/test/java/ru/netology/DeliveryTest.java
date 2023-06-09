@@ -10,6 +10,7 @@ import ru.netology.data.DataGenerator;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -19,6 +20,7 @@ class DeliveryTest {
     void setup() {
         open("http://localhost:7777");
     }
+
     @Test
     @DisplayName("Should successful plan and ChangePlan meeting")
     void shouldSuccessfulPlanAndReplanMeeting() {
@@ -40,7 +42,7 @@ class DeliveryTest {
         $(".button").click();
         $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(30));
         $("[data-test-id=success-notification] .notification__content")
-                .shouldHave(Condition.text("Встреча успешно запланирована на " + firstMeetingDate));
+                .shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate));
 
         //перепланирование
 
@@ -48,8 +50,7 @@ class DeliveryTest {
         $(".calendar-input input").setValue(secondMeetingDate);
         $(".button").click();
         $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(30));
-        SelenideElement shouldHave = $("[data-test-id= changePlan-notification]")
-
+        $("[data-test-id=replan-notification]")
                 .shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
         $(withText("Перепланировать")).click();
         $("[data-test-id=success-notification]").shouldBe(Condition.visible, Duration.ofSeconds(30));
